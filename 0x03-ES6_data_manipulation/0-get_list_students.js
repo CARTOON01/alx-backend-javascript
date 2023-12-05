@@ -1,8 +1,3 @@
-/**
- * Retrieves a list of students.
- * @author Brian Ngugi
- * @returns {{id: Number, firstName: String, location: String}[]}
- */
 export default function getListStudents() {
   return [
     { id: 1, firstName: 'Guillaume', location: 'San Francisco' },

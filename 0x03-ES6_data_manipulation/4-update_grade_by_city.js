@@ -1,32 +1,22 @@
-/**
- * Updates the grades of a list of students in a given city.
- * @param {{
- *   id: Number,
- *   firstName: String,
- *   location: String
- * }[]} students - The list of students.
- * @param {*} city - The city of students.
- * @param {{
- *   studentId: Number,
- *   grade: Number,
- * }[]} newGrades - The new grades to be given to a student.
- * @author Bezaleel Olakunori <https://github.com/B3zaleel>
- * @returns {{id: Number, firstName: String, location: String}[]}
- */
-export default function updateStudentGradeByCity(students, city, newGrades) {
-  const defaultGrade = { grade: 'N/A' };
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-prototype-builtins */
+export default function updateStudentGradeByCity(list, city, newGrade) {
+  return list
+    .filter((obj) => obj.location === city)
+    .map((student) => {
+    //   console.log(newGrade);
+      newGrade.map((studentGrade) => {
+        if (studentGrade.studentId === student.id) {
+          // eslint-disable-next-line no-param-reassign
+          student.grade = studentGrade.grade;
+        }
 
-  if (students instanceof Array) {
-    return students
-      .filter((student) => student.location === city)
-      .map((student) => ({
-        id: student.id,
-        firstName: student.firstName,
-        location: student.location,
-        grade: (newGrades
-          .filter((grade) => grade.studentId === student.id)
-          .pop() || defaultGrade).grade,
-      }));
-  }
-  return [];
+        if (!student.hasOwnProperty('grade')) {
+          student.grade = 'N/A';
+        }
+        return student;
+      });
+
+      return student;
+    });
 }
