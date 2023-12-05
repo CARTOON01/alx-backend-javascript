@@ -1,21 +1,13 @@
-export default function getListStudents() {
-  const o1 = {
-    id: 1,
-    firstName: 'Guillaume',
-    location: 'San Francisco',
-  };
+export const weakMap = new WeakMap();
 
-  const o2 = {
-    id: 2,
-    firstName: 'James',
-    location: 'Columbia',
-  };
+const MAX_ENDPOINT_CALLS = 5;
 
-  const o3 = {
-    id: 5,
-    firstName: 'Serena',
-    location: 'San Francisco',
-  };
-
-  return [o1, o2, o3];
+export function queryAPI(endpoint) {
+  if (!weakMap.has(endpoint)) {
+    weakMap.set(endpoint, 0);
+  }
+  weakMap.set(endpoint, weakMap.get(endpoint) + 1);
+  if (weakMap.get(endpoint) >= MAX_ENDPOINT_CALLS) {
+    throw new Error('Endpoint load is high');
+  }
 }
