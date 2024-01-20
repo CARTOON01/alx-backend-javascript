@@ -1,10 +1,18 @@
-/* eslint-disable array-callback-return */
-export default function cleanSet(set, string) {
-  if (string === undefined || string.length === 0) {
+const cleanSet = (set, startString) => {
+  const str = [];
+  if (
+    typeof set !== 'object'
+        || typeof startString !== 'string'
+        || startString.length === 0
+  ) {
     return '';
   }
-  return [...set]
-    .filter((str) => (str !== undefined ? str.startsWith(string) : ''))
-    .map((str) => (str !== undefined ? str.slice(string.length) : ''))
-    .join('-');
-}
+
+  for (const item of set) {
+    if (item && item.startsWith(startString)) {
+      str.push(item.slice(startString.length));
+    }
+  }
+  return str.join('-');
+};
+export default cleanSet;
